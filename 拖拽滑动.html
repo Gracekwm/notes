@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html, body{
+      margin: 0;
+      padding: 0;
+    }
+    #div1 {
+      width: 200px;
+      height: 200px;
+      background: #deb887;
+      position: absolute;
+    }
+
+    /* .mask {
+      width: 500px;
+      height: 500px;
+      background: yellow;
+    }
+
+    .img {
+      width: 200px;
+      height: 200px;
+      background-color: orange;
+    }
+
+    .btn-close {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+    } */
+  </style>
+</head>
+
+<body>
+  <div id="div1"></div>
+  <!-- <div class="mask">
+    <div class="img">
+      <div class="btn-close">
+
+      </div>
+    </div>
+  </div> -->
+  <script>
+    window.onload = function () {
+      var oDiv = document.getElementById('div1')
+      var disX = 0;
+      var disY = 0;
+
+      oDiv.onmousedown = function (ev) {
+        var oEvent = ev || event;
+
+        disX = oEvent.clientX - oDiv.offsetLeft;
+        disY = oEvent.clientY - oDiv.offsetTop;
+        document.onmousemove = function (ev) {
+          var oEvent = ev || event;
+          var l = oEvent.clientX - disX;
+          var t = oEvent.clientY - disY;
+          // 此处的判断是为了防止拖拽框被拖出屏幕可视区域
+          if (l < 0) {
+            l = 0;
+          } else if (l > document.documentElement.clientWidth - oDiv.offsetWidth) {
+            l = document.documentElement.clientWidth - oDiv.offsetWidth;
+          }
+          if (t < 0) {
+            t = 0;
+          } else if (t > document.documentElement.clientHeight - oDiv.offsetHeight) {
+            t = document.documentElement.clientHeight - oDiv.offsetHeight;
+          }
+          oDiv.style.left = l + 'px';
+          oDiv.style.top = t + 'px';
+        };
+        //此处是为了防止在火狐浏览器下拖拽时会出现的两次阴影的效果，此处代码可以禁用
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmouseup = null;
+        }
+      }
+    }
+    // var mask = document.getElementsByClassName('mask')[0];
+    // var img = document.getElementsByClassName('img')[0];
+    // var btn = document.getElementsByClassName('btn-close')[0];
+    // console.log(mask);
+    // mask.onclick = function () {
+    //   console.log(1111)
+    //   event.stopPropagation()
+    // };
+    // img.onclick = function () {
+    //   console.log(222)
+    //   event.stopPropagation()
+    // };
+    // btn.onclick = function () {
+    //   console.log(3333)
+    //   event.stopPropagation()
+    // };
+  </script>
+</body>
+
+</html>
